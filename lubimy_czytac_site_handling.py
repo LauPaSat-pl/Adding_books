@@ -3,18 +3,17 @@ import time
 
 import pyautogui
 import pyperclip
-import requests
 
 
 def search_for_a_book():
 	pyautogui.press('home')
 	time.sleep(0.25)
-	pyautogui.click(1443, 200)
+	pyautogui.click(1567, 400)
 	time.sleep(0.25)
 	pyautogui.hotkey('ctrl', 'v')
 	time.sleep(2.5)
-	pyautogui.click(1443, 300)
-	time.sleep(2)
+	pyautogui.click(1443, 470)
+	time.sleep(5)
 	return check_if_book_found()
 
 
@@ -32,17 +31,19 @@ def check_publication_date():
 
 
 def get_desc():
-	pyautogui.click(1445, 66)
-	pyautogui.click(1445, 66)
+	pyautogui.hotkey('ctrl', 'u')
+	time.sleep(5)
+	pyautogui.hotkey('ctrl', 'a')
+	time.sleep(1)
 	pyautogui.hotkey('ctrl', 'c')
-	full_site_text = requests.get(pyperclip.paste())
+	time.sleep(1)
+	pyautogui.hotkey('ctrl', 'w')
 
-	desc_regex = re.compile(r'<div class="collapse-content">\n\s+<p>\s+(.+\s)+</p>')
-	raw_desc = desc_regex.search(full_site_text.text)
+	full_site_text = pyperclip.paste()
+	raw_desc = full_site_text.split('<div class="collapse-content">')[1].split('</div>')[0]
 
-	raw_desc = raw_desc.group()[50:-4]
+	raw_desc = raw_desc.replace("<br />", "").replace("<p>", "").replace("</p>", "")
 	raw_desc = raw_desc.strip()
-	raw_desc = raw_desc.replace("<br />", "")
 
 	print(raw_desc)
 	return raw_desc

@@ -25,10 +25,10 @@ def choose_category(category='Literatura'):
 
 	pyautogui.click(250, 700)
 	time.sleep(1.5)
-	pyautogui.click(1042, 1097)
-	time.sleep(0.25)
-	pyautogui.click(987, 389)
-	time.sleep(0.25)
+	pyautogui.click(1011, 1156)
+	time.sleep(1)
+	pyautogui.click(1020, 379)
+	time.sleep(1)
 	if category == 'Literatura':
 		pyautogui.click(1567, 400)
 	elif category == 'Czasopisma':
@@ -47,11 +47,14 @@ def choose_category(category='Literatura'):
 		pyautogui.click(1567, 1000)
 	else:
 		return 0
-	time.sleep(1)
+	time.sleep(5)
 	return 1
 
 
-def choose_photos(photos=""):
+def choose_photos(photos):
+	if photos=='':
+		print("No photos of the book")
+		return 0
 	photos_list = photos.split(",")
 	photos = ''
 
@@ -61,7 +64,7 @@ def choose_photos(photos=""):
 
 	pyautogui.click(370, 1157)
 	time.sleep(1)
-	pyautogui.click(418, 620)
+	pyautogui.click(575, 920)
 	pyperclip.copy(photos)
 	time.sleep(1)
 	pyautogui.hotkey('ctrl', 'v')
@@ -69,6 +72,7 @@ def choose_photos(photos=""):
 	pyautogui.press('enter')
 
 	time.sleep(2)
+	return 1
 
 
 def enter_price(price=1000, negotiable=True):
@@ -76,9 +80,8 @@ def enter_price(price=1000, negotiable=True):
 	pyautogui.click(370, 1075)
 	time.sleep(1)
 	pyautogui.write(str(price))
-	pyautogui.mouseInfo()
 	if negotiable:
-		pyautogui.click(678, 1165)
+		pyautogui.click(735, 1231)
 	time.sleep(1.5)
 
 
@@ -86,40 +89,27 @@ def enter_book_info(publishing_year=None, is_used=True, private_offer=True):
 	time.sleep(0.25)
 
 	if private_offer:
-		pyautogui.click(291, 1340)
+		pyautogui.click(291, 312)
 	else:
-		pyautogui.click(556, 1340)
+		pyautogui.click(556, 312)
 
-	pyautogui.press("pagedown")
 	time.sleep(0.5)
-	pyautogui.click(449, 282)
-	if publishing_year is None:
-		pyautogui.hotkey('ctrl', 'tab')
-		time.sleep(0.25)
-		if not lubimy_czytac_site_handling.search_for_a_book():
-			return 0
-		time.sleep(1)
-		lubimy_czytac_site_handling.check_publication_date()
-		pyautogui.hotkey('ctrl', 'tab')
-		time.sleep(0.25)
-		pyautogui.hotkey('ctrl', 'v')
-	else:
+	pyautogui.click(433, 417)
+	if publishing_year is not None:
 		pyautogui.write(str(publishing_year))
 	if is_used:
-		pyautogui.click(291, 408)
+		pyautogui.click(291, 548)
 	else:
-		pyautogui.click(556, 402)
+		pyautogui.click(556, 548)
 	time.sleep(1)
 
 
 def add_description(desc=""):
 	time.sleep(1)
-	if desc != "":
-		pass
-	else:
+	if desc == "":
 		pyautogui.hotkey('ctrl', 'tab')
 		time.sleep(0.25)
-		if not lubimy_czytac_site_handling.check_if_book_found():
+		if not lubimy_czytac_site_handling.search_for_a_book():
 			return 0
 		desc = lubimy_czytac_site_handling.get_desc()
 		pyautogui.hotkey('ctrl', 'tab')
@@ -127,40 +117,62 @@ def add_description(desc=""):
 	footnote = '\n\nKontakt telefoniczny jedynie od poniedziałku do piątku w godzinach 19-21. Proszę NIE dzwonić poza tymi godzinami, bo nie odbieram, a często dodaję numer do blokowanych. Kontakt SMS-owy i na OLX dostępny całą dobę. \nOdbiór osobisty w Warszawie. Możliwa wysyłka zgodnie z cennikiem poczty polskiej lub paczkomatem + opakowanie. \nZapraszam również do moich innych ogłoszeń. Przy zakupach hurtem (powyżej 30 zł, przynajmniej trzy rzeczy) ZNIŻKA NAWET DO 10%. Przy zakupie kilku z moich ogłoszeń z przesyłką OLX proszę o informację na OLX, to stworzę ogłoszenie zbiorcze, żeby obniżyć koszty przesyłki.'
 	full_desc = desc + footnote
 	pyperclip.copy(full_desc)
-	# pyautogui.press("pagedown")
 	pyautogui.click(540, 644)
 	pyautogui.hotkey('ctrl', 'v')
+	time.sleep(0.25)
 	return 1
 
 
 def move_through_paying():
 	time.sleep(5)
-	pyautogui.press("pagedown")
+	pyautogui.mouseInfo()
+	pyautogui.press("end")
 	time.sleep(0.5)
-	pyautogui.click(1474, 1219)
+	pyautogui.click(1844, 1274)
 	time.sleep(5)
 
 
 def add_shipping(size='A', weight=1):
 	if size == 'A':
-		pyautogui.click(420, 1219)
+		pyautogui.click(400, 1014)
+		time.sleep(0.5)
+		if weight < 5:
+			pyautogui.click(300, 1150)
+			time.sleep(0.5)
+			pyautogui.click(300, 1250)
+			time.sleep(0.5)
+			pyautogui.click(300, 1350)
+		elif weight < 25:
+			pyautogui.click(300, 1250)
 	elif size == 'B':
-		pyautogui.click(920, 1219)
+		pyautogui.click(271, 1219)
+		pyautogui.press("pagedown")
+		time.sleep(0.5)
+		if weight < 10:
+			pyautogui.click(300, 200)
+			time.sleep(0.5)
+			pyautogui.click(300, 300)
+			time.sleep(0.5)
+			pyautogui.click(300, 400)
+		elif weight < 25:
+			pyautogui.click(300, 300)
 	elif size == 'C':
-		pyautogui.click(1420, 1219)
-	elif size == 'D':
-		pyautogui.click(420, 1379)
-	time.sleep(0.25)
-	pyautogui.press("pagedown")
-	time.sleep(0.25)
-	if weight < 5:
-		pyautogui.click(323, 672)
-	elif weight < 20:
-		pyautogui.click(500, 672)
-	else:
-		pyautogui.click(727, 672)
-	time.sleep(0.25)
+		pyautogui.click(271, 1319)
+		pyautogui.press("pagedown")
+		time.sleep(0.5)
+		if weight < 20:
+			pyautogui.click(300, 350)
+			time.sleep(0.5)
+			pyautogui.click(300, 450)
+			time.sleep(0.5)
+			pyautogui.click(300, 550)
+		elif weight < 25:
+			pyautogui.click(300, 350)
+			time.sleep(0.5)
+			pyautogui.click(300, 300)
+	time.sleep(0.5)
+	pyautogui.press("end")
+	time.sleep(0.5)
 
-	pyautogui.click(331, 957)
-	time.sleep(2)
-	pyautogui.click(1699, 1257)
+	pyautogui.click(1800, 460)
+	time.sleep(1.5)

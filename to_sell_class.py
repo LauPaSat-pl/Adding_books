@@ -1,14 +1,20 @@
 class ToSell:
 	__slots__ = ['title', 'category', 'price', 'negotiable', 'publishing_date', 'desc', 'photos', 'size']
 
-	def __init__(self, title, price, category='Literatura', negotiable='', publishing_date='', desc='', photos='', size='A'):
+	def __init__(self, title, price, category, negotiable, publishing_date='', desc='', photos='', size=''):
 		self.title = title
 		self.price = price
+		if category == '':
+			category = "Literatura"
 		self.category = category
+		if negotiable == '':
+			negotiable = True
 		self.negotiable = negotiable
 		self.publishing_date = publishing_date
 		self.desc = desc
 		self.photos = photos
+		if size == '':
+			size='A'
 		self.size = size
 
 	def __repr__(self):

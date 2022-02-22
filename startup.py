@@ -1,4 +1,5 @@
 import time
+
 import pyautogui
 
 import to_sell_class
@@ -7,8 +8,9 @@ import to_sell_class
 def set_up_environment():
 	start_opera()
 	a = create_list_of_items_to_sell()
-	time.sleep(5)
+	time.sleep(10)
 	return a
+
 
 def start_opera():
 	pyautogui.press("winleft")
@@ -22,7 +24,7 @@ def start_opera():
 	time.sleep(0.5)
 	pyautogui.hotkey("ctrl", 't')
 	time.sleep(0.5)
-	pyautogui.write("olx.pl")
+	pyautogui.write("https://www.olx.pl/d/nowe-ogloszenie/?bs=homepage_adding")
 	pyautogui.press("enter")
 
 
@@ -36,7 +38,6 @@ def create_list_of_items_to_sell():
 		data = to_sell[item].split(";")
 		for i in range(len(data)):
 			data[i] = data[i].strip()
-
 
 		if len(data[0]) < 14 or len(data[0]) > 70:
 			with open("errors.txt", 'a', encoding='utf8') as file:
