@@ -1,15 +1,9 @@
-import sys
 import time
 
 import pyautogui
+
 import olx_site_handling as olx
 import startup
-
-
-def change_screen_resolution():
-	# TODO: "check screen resolution, and adjust clicking points"
-	pass
-
 
 if __name__ == "__main__":
 	list_of_items_to_sell = startup.set_up_environment()
@@ -31,4 +25,3 @@ if __name__ == "__main__":
 		pyautogui.write("https://www.olx.pl/d/nowe-ogloszenie/?bs=homepage_adding")
 		pyautogui.press("enter")
 		time.sleep(10)
-		# sys.exit()

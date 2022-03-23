@@ -6,12 +6,11 @@ import pyperclip
 import lubimy_czytac_site_handling
 
 
-def open_adding_new_book():
-	pyautogui.click(1700, 150)
-	time.sleep(10)
-
-
-def input_book_title(title="Nadeszło jutro, jak pandemia zmienia Europę"):
+def input_book_title(title:str):
+	"""
+	Function to enter book title
+	:param title: Title of the book
+	"""
 	pyautogui.click(378, 568)
 	pyperclip.copy(title)
 
@@ -21,7 +20,11 @@ def input_book_title(title="Nadeszło jutro, jak pandemia zmienia Europę"):
 
 
 def choose_category(category='Literatura'):
-	# TODO: "add non book categories"
+	"""
+	Function to choose book category
+	:param category: Category to be chosen
+	"""
+	# TODO: add non book categories
 
 	pyautogui.click(250, 700)
 	time.sleep(1.5)
@@ -51,8 +54,13 @@ def choose_category(category='Literatura'):
 	return 1
 
 
-def choose_photos(photos):
-	if photos=='':
+def choose_photos(photos: str):
+	"""
+	Function to choose photos of the book
+	:param photos: Name of the photos, separated by commas
+	:return:
+	"""
+	if photos == '':
 		print("No photos of the book")
 		return 0
 	photos_list = photos.split(",")
@@ -76,6 +84,11 @@ def choose_photos(photos):
 
 
 def enter_price(price=1000, negotiable=True):
+	"""
+	Function to enter price of the book and if the price is negotiable
+	:param price: Price in PLN
+	:param negotiable: if negotiable
+	"""
 	time.sleep(1)
 	pyautogui.click(370, 1075)
 	time.sleep(1)
@@ -86,6 +99,12 @@ def enter_price(price=1000, negotiable=True):
 
 
 def enter_book_info(publishing_year=None, is_used=True, private_offer=True):
+	"""
+	Function to enter basic info about the book
+	:param publishing_year: Publishing year of the book
+	:param is_used: If the book is used
+	:param private_offer: Is it private or business offer
+	"""
 	time.sleep(0.25)
 
 	if private_offer:
@@ -105,6 +124,11 @@ def enter_book_info(publishing_year=None, is_used=True, private_offer=True):
 
 
 def add_description(desc=""):
+	"""
+	Function to enter description of the book
+	:param desc: Description. If empty will get description from lubimyczytac.pl
+	:return: 1 - if the description was added
+	"""
 	time.sleep(1)
 	if desc == "":
 		pyautogui.hotkey('ctrl', 'tab')
@@ -123,16 +147,12 @@ def add_description(desc=""):
 	return 1
 
 
-def move_through_paying():
-	time.sleep(5)
-	pyautogui.mouseInfo()
-	pyautogui.press("end")
-	time.sleep(0.5)
-	pyautogui.click(1844, 1274)
-	time.sleep(5)
-
-
 def add_shipping(size='A', weight=1):
+	"""
+	Function to choose Przesyłka OLX options
+	:param size: Size of the book
+	:param weight: Weight of the book
+	"""
 	if size == 'A':
 		pyautogui.click(400, 1014)
 		time.sleep(0.5)
