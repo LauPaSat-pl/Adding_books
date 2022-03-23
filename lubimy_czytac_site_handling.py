@@ -6,6 +6,10 @@ import pyperclip
 
 
 def search_for_a_book():
+	"""
+	Function to search for a book on lubimyczytać.pl. It needs to have book title already in clipboard when called
+	:return:
+	"""
 	pyautogui.press('home')
 	time.sleep(0.25)
 	pyautogui.click(1567, 400)
@@ -18,6 +22,10 @@ def search_for_a_book():
 
 
 def check_publication_date():
+	"""
+	Function to get publication date of the book. Assumes it is already on target book's site
+	:return: Publication date of the book (in clipboard)
+	"""
 	pyautogui.click(825, 1029)
 	time.sleep(1)
 	pyautogui.moveTo(1015, 1083)
@@ -31,6 +39,10 @@ def check_publication_date():
 
 
 def get_desc():
+	"""
+		Function to get description of the book. Assumes it is already on target book's site
+		:return: Description of the book (in clipboard)
+		"""
 	pyautogui.hotkey('ctrl', 'u')
 	time.sleep(5)
 	pyautogui.hotkey('ctrl', 'a')
@@ -50,6 +62,10 @@ def get_desc():
 
 
 def check_if_book_found():
+	"""
+	Function to check if the book was found
+	:return: 0 if it wasn't found (so search_for_a_book() entered the wrong site), 1 otherwise
+	"""
 	pyautogui.click(1445, 66)
 	pyautogui.hotkey('ctrl', 'c')
 	website = pyperclip.paste()
